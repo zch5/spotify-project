@@ -1,6 +1,6 @@
 const fs = require('fs')
 const SpotifyWebApi = require('spotify-web-api-node');
-const token = "BQBJesMdZBYuEdVYKtUAz4Dz2Wf0GVAAaKA2g0tnt_4zxg77uHxsEXy-qwKdLIs_SM-4xhsrcLCSYYg7-JSE5F6QBPZ7cP5yUoKX-Zq7yJAylYBivJq7V0yY6N4ICy5kBXke4vAzi0vbLbr7lkXrTLazR5ifF5XyS8yWuiTiXZ-OdygYrBqfTH1Ck319rwwGMp93nYWBXJsYVp6KfQZ56bbdAmLaGuIE4B2b7UYH-TpbUoqsIOnDuJXtEMQB7MAQPVVgmGgSTK6fIB1QWWgrxpgsh_FaC7KIzvUv";
+const token = "";
 
 const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(token);
@@ -17,46 +17,46 @@ function getMyData() {
 }
 
 //GET MY PLAYLISTS
-async function getUserPlaylists(userName) {
-  const data = await spotifyApi.getUserPlaylists(userName)
+// async function getUserPlaylists(userName) {
+//   const data = await spotifyApi.getUserPlaylists(userName)
 
-  console.log("---------------+++++++++++++++++++++++++")
-  let playlists = []
+//   console.log("---------------+++++++++++++++++++++++++")
+//   let playlists = []
 
-  for (let playlist of data.body.items) {
-    console.log(playlist.name + " " + playlist.id)
+//   for (let playlist of data.body.items) {
+//     console.log(playlist.name + " " + playlist.id)
     
-    let tracks = await getPlaylistTracks(playlist.id, playlist.name);
-    // console.log(tracks);
+//     let tracks = await getPlaylistTracks(playlist.id, playlist.name);
+//     // console.log(tracks);
 
-    const tracksJSON = { tracks }
-    let data = JSON.stringify(tracksJSON);
-    fs.writeFileSync(playlist.name+'.json', data);
-  }
-}
+//     const tracksJSON = { tracks }
+//     let data = JSON.stringify(tracksJSON);
+//     fs.writeFileSync(playlist.name+'.json', data);
+//   }
+// }
 
 //GET SONGS FROM PLAYLIST
-async function getPlaylistTracks(playlistId, playlistName) {
+// async function getPlaylistTracks(playlistId, playlistName) {
 
-  const data = await spotifyApi.getPlaylistTracks(playlistId, {
-    offset: 1,
-    limit: 100,
-    fields: 'items'
-  })
+//   const data = await spotifyApi.getPlaylistTracks(playlistId, {
+//     offset: 1,
+//     limit: 100,
+//     fields: 'items'
+//   })
 
-  // console.log('The playlist contains these tracks', data.body);
-  // console.log('The playlist contains these tracks: ', data.body.items[0].track);
-  // console.log("'" + playlistName + "'" + ' contains these tracks:');
-  let tracks = [];
+//   // console.log('The playlist contains these tracks', data.body);
+//   // console.log('The playlist contains these tracks: ', data.body.items[0].track);
+//   // console.log("'" + playlistName + "'" + ' contains these tracks:');
+//   let tracks = [];
 
-  for (let track_obj of data.body.items) {
-    const track = track_obj.track
-    tracks.push(track);
-    console.log(track.name + " : " + track.artists[0].name)
-  }
+//   for (let track_obj of data.body.items) {
+//     const track = track_obj.track
+//     tracks.push(track);
+//     console.log(track.name + " : " + track.artists[0].name)
+//   }
   
-  console.log("---------------+++++++++++++++++++++++++")
-  return tracks;
-}
+//   console.log("---------------+++++++++++++++++++++++++")
+//   return tracks;
+// }
 
 getMyData();
